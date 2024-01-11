@@ -14,7 +14,7 @@ function TodoForm({ data, setData }) {
     }
     const handleData = (e) => {
         e.preventDefault();
-        setData([...data, { inputTitleValue: inputTitleValue, inputDescValue: inputDescValue }])
+        setData([...data, { inputTitleValue: inputTitleValue, inputDescValue: inputDescValue, inputStatus: 'false' }])
         setinputTitleValue('')
         setinputDescValue('')
 
