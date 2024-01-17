@@ -5,7 +5,6 @@ import { useState } from 'react';
 
 function App() {
   const [data, setData] = useState([]);
-
   return (
     <>
       <h1>Todo List</h1>

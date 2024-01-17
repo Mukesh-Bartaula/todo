@@ -4,6 +4,7 @@ function TodoList({ data, setData }) {
     const [updateTitle, setupdateTitle] = useState('')
     const [updateDesc, setupdateDesc] = useState('')
 
+
     const handleUpdateTitle = (Title) => {
         setupdateTitle(Title)
     }
@@ -26,6 +27,16 @@ function TodoList({ data, setData }) {
 
 
     }
+    const editButton = (e, id) => {
+        e.preventDefault();
+        data.map((item, index) => {
+            if (index === id) {
+                setupdateTitle(item.inputTitleValue)
+                setupdateDesc(item.inputDescValue)
+            }
+        })
+    }
+
     const handleEdit = (e, id) => {
         e.preventDefault();
         const newData = [...data]
@@ -44,6 +55,7 @@ function TodoList({ data, setData }) {
         setData(newData)
     }
 
+
     const deleteData = (id) => {
         const newList = data.filter((_, index) => index !== id)
         setData(newList)
@@ -51,7 +63,7 @@ function TodoList({ data, setData }) {
     return (
         <>
             <div className="container">
-                <table className=" table  table-hover border  ">
+                <table className=" table    table-hover border  ">
                     <thead>
                         <tr>
                             <th>SN</th>
@@ -89,8 +101,8 @@ function TodoList({ data, setData }) {
 
                                 {item.inputStatus === 'false' && (
                                     <td >
-                                        <div style={{ display: 'flex', height: '25px', width: '20px', cursor: 'pointer' }}>
-                                            <img src="./edit.png" data-bs-toggle="modal" data-bs-target={`#editForm${index}`} />
+                                        <div style={{ display: 'flex', height: '25px', width: '20px', cursor: 'pointer' }} >
+                                            <img src="./edit.png" data-bs-toggle="modal" data-bs-target={`#editForm${index}`} onClick={(e) => editButton(e, index)} />
                                             <div className="modal fade" id={`editForm${index}`}>
                                                 <div className="modal-dialog">
                                                     <div className="modal-content">
@@ -101,10 +113,10 @@ function TodoList({ data, setData }) {
                                                         <div className="modal-body">
                                                             <form onSubmit={(e) => handleEdit(e, index)}>
                                                                 <div className="mb-3">
-                                                                    <input type="text" className="form-control" value={updateTitle.inputTitleValue} onChange={(e) => handleUpdateTitle(e.target.value)} />
+                                                                    <input type="text" className="form-control" value={updateTitle} onChange={(e) => handleUpdateTitle(e.target.value)} />
                                                                 </div>
                                                                 <div className="mb-3">
-                                                                    <input type="text" className="form-control" value={updateDesc.inputDescValue} onChange={(e) => handleUpdateDesc(e.target.value)} />
+                                                                    <input type="text" className="form-control" value={updateDesc} onChange={(e) => handleUpdateDesc(e.target.value)} />
                                                                 </div>
                                                                 <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Update</button>
                                                             </form>
