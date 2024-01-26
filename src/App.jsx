@@ -1,9 +1,11 @@
 import './App.css'
-import TodoForm from '@/component/TodoForm'
-import { Route, Routes, BrowserRouter, Navigate } from 'react-router-dom'
-import TodoList from '@/component/TodoList'
 import { useState } from 'react'
+import { Route, Routes, BrowserRouter, Navigate } from 'react-router-dom'
+import UserState from './Context/notes/UserState'
+import TodoForm from '@/component/TodoForm'
+import TodoList from '@/component/TodoList'
 import Login from '@/component/Login'
+import Signup from '@/component/Signup'
 
 function App() {
   const [data, setData] = useState([])
@@ -12,22 +14,26 @@ function App() {
 
 
   return (
-    <>
+    <UserState>
       <BrowserRouter>
 
         <Routes>
           <Route
-            exact
             path="/"
             element={(loggedIn ?
               (<Navigate to="/todo" />)
               :
-              (<Login author={author} setAuthor={setAuthor} />)
+              (<Login author={author} setAuthor={setAuthor} setLoggedIn={setLoggedIn} />)
             )}
+
           />
 
-         
 
+          <Route
+            path="/Signup"
+            element={<Signup />}
+
+          />
           <Route
             path="/todo"
             element={(loggedIn ? (
@@ -42,7 +48,8 @@ function App() {
 
         </Routes>
       </BrowserRouter>
-    </>
+    </UserState>
+
   )
 }
 export default App;
